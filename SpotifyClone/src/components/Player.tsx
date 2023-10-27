@@ -13,7 +13,7 @@ const Player = () => {
 
   useEffect(() => {
     playTrack();
-  }, [track]);
+  }, [track]);// track thay đổi gọi hàm playtrack để tạo mới 
 
   useEffect(() => {
     return sound
@@ -26,19 +26,19 @@ const Player = () => {
 
   const playTrack = async () => {
     if (sound) {
-      await sound.unloadAsync();
+      await sound.unloadAsync(); // dỡ bỏ âm thanh hiện tại
     }
 
-    if (!track?.preview_url) {
-      return;
+    if (!track?.preview_url) { // kiểm tra xem có url k 
+      return; 
     }
-    const { sound: newSound } = await Audio.Sound.createAsync({
+    const { sound: newSound } = await Audio.Sound.createAsync({ // tạo âm thành mới
       uri: track.preview_url,
     });
 
     setSound(newSound);
     newSound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
-    await newSound.playAsync();
+    await newSound.playAsync(); // bắt đầu chơi bài hát mới
   };
 
   const onPlaybackStatusUpdate = (status: AVPlaybackStatus) => {
